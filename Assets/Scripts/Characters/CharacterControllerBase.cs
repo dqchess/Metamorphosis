@@ -10,23 +10,29 @@ public class CharacterControllerBase : MonoBehaviour {
     public float Speed { get; set; } = 8.0f;
     public float PunchForce { get; set; } = 1.0f;
 
-       
-
+    protected bool _animationStateChanged = true;
     protected float AttackSpeed { get; set; } = 0.2f;
     protected float LastAttackTime { get; set; } = 0.0f;
     protected bool CanAttack {
         get {
             return Time.time > LastAttackTime + AttackSpeed;
         }
-    }
-    
+    }    
+
     public List<GameObject> TargetsInAttackArea { get; set; }
+
+    protected Dictionary<int,AnimationClip> MovementAnimationDictionary { get; set; }
     protected Rigidbody Rigidbody;
+    protected List<AnimationClip> AnimationClips { get; set; }
+    protected GameObject AnimationBody { get; set; }
+
 
     // Start is called before the first frame update
     protected virtual void Start() {              
         TargetsInAttackArea = new List<GameObject>();
         Rigidbody = GetComponent<Rigidbody>();
+        AnimationClips = AnimationClipsLoader.GetAnimationClips(gameObject.tag);
+        AnimationBody = HelperTools.FindObjectInChildWithTag(gameObject, "BodyModel");
     }
 
     // Update is called once per frame
@@ -48,6 +54,9 @@ public class CharacterControllerBase : MonoBehaviour {
     }
     protected virtual void ApplyAnimations() {
 
+    }
+    protected virtual Dictionary<int, AnimationClip> InitAnimationsDictionary() {
+        return null;
     }
 
     protected virtual void CheckToDead() {
