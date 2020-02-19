@@ -80,7 +80,6 @@ public class PlayerController : CharacterControllerBase {
             movementDirection = Mathf.FloorToInt((angle + 22.5f) / 45.0f);
             movementDirection = 8 - movementDirection;
         }
-        Debug.Log(angle);
         Debug.Log(movementDirection);
         return movementDirection + 1;
     }
