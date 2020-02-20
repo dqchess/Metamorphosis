@@ -27,6 +27,7 @@ public class FightCorrelationsProvider {
 
         FightCorrelation enemyFightCorrelation = new FightCorrelation("SimpleEnemy");
         enemyFightCorrelation.TargetTags.Add("Player");
+        enemyFightCorrelation.TargetTags.Add("SmartEnemy");
         list.Add(enemyFightCorrelation);
 
         return list;

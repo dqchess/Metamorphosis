@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class AnimationClipsLoader 
 {
-    public static List<AnimationClip> GetAnimationClips(string objectName) {
-        var animationClips = Resources.LoadAll(string.Format("{0}\\{1}", "Models\\Animations", objectName), typeof(AnimationClip)).Cast<AnimationClip>();
+    public static List<AnimationClip> GetAnimationClips(string objectName, string animationType) {
+        var animationClips = Resources.LoadAll(string.Format("{0}\\{1}\\{2}", "Models\\Animations", objectName, animationType), typeof(AnimationClip)).Cast<AnimationClip>();
         return animationClips.ToList();
     }
 }

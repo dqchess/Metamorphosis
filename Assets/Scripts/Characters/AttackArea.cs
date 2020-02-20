@@ -16,9 +16,10 @@ public class AttackArea : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter(Collider collider) {
+    void OnTriggerEnter(Collider collider) {        
         if (FightLayersHelper.IsCharacterInTargetsList(ParentObject, collider.gameObject)) {
-            CharacterControllerBase.TargetsInAttackArea.Add(collider.gameObject);
+            Debug.Log(string.Format("{0} In attack area of the {1}", collider.gameObject.name, ParentObject.name));
+            CharacterControllerBase.TargetsInAttackArea.Add(collider.gameObject);                        
         }
     }
     void OnTriggerExit(Collider collider) {

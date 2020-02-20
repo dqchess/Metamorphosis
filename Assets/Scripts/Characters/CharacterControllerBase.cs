@@ -31,7 +31,7 @@ public class CharacterControllerBase : MonoBehaviour {
     protected virtual void Start() {              
         TargetsInAttackArea = new List<GameObject>();
         Rigidbody = GetComponent<Rigidbody>();
-        AnimationClips = AnimationClipsLoader.GetAnimationClips(gameObject.tag);
+        AnimationClips = AnimationClipsLoader.GetAnimationClips(gameObject.tag, "Movement");
         AnimationBody = HelperTools.FindObjectInChildWithTag(gameObject, "BodyModel");
     }
 
@@ -69,7 +69,7 @@ public class CharacterControllerBase : MonoBehaviour {
             return false;
         LastAttackTime = Time.time;
         List<GameObject> needToRemove = new List<GameObject>();
-        TargetsInAttackArea.RemoveAll(s => s == null);
+        TargetsInAttackArea.RemoveAll(s => s == null);        
         foreach (var character in TargetsInAttackArea) {
             CharacterControllerBase characterControllerBase = character.GetComponent<CharacterControllerBase>();
             characterControllerBase.ApplyPunch(PunchForce);

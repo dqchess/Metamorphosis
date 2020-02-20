@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace CleverCamera
-{
-    public class CameraController : MonoBehaviour
-    {
+namespace CleverCamera {
+    public class CameraController : MonoBehaviour {
         private const float angleChangeValue = 0.5f;
 
         public float CameraRotationAngle {
@@ -15,7 +13,9 @@ namespace CleverCamera
             }
         }
 
-
+        private float rotationMultipier = 1.0f;
+        private float heightMultipier = .5f;
+        private float distanceMultipier = 1.0f;
         #region vars
         public Transform m_Target;
         public float m_Height = 10f;
@@ -26,29 +26,55 @@ namespace CleverCamera
         private Vector3 refVelocity;
         #endregion
         // Start is called before the first frame update
-        void Start()
-        {
+        void Start() {
             HandleCamera();
         }
 
         // Update is called once per frame
-        void Update()
-        {
+        void Update() {
             HandleCamera();
         }
         void FixedUpdate() {
-            if (Input.GetKey(KeyCode.Q)) {
-                m_Angle -= angleChangeValue;
+            if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) {
+                if (Input.GetKey(KeyCode.Q)) {
+                    m_Angle -= angleChangeValue * rotationMultipier;
+                }
+                else if (Input.GetKey(KeyCode.E)) {
+                    m_Angle += angleChangeValue * rotationMultipier;
+                }
+                rotationMultipier += 0.15f;
             }
-            else if (Input.GetKey(KeyCode.E)) {
-                m_Angle += angleChangeValue;
+            else {
+                rotationMultipier = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.Y) || Input.GetKey(KeyCode.H)) {
+                if (Input.GetKey(KeyCode.Y)) {
+                    m_Height += angleChangeValue * heightMultipier;
+                }
+                else if (Input.GetKey(KeyCode.H)) {
+                    m_Height -= angleChangeValue * heightMultipier;
+                }
+                heightMultipier += 0.05f;
+            }
+            else {
+                heightMultipier = 0.5f;
+            }
+            if (Input.mouseScrollDelta.y != 0) {
+                if (Input.mouseScrollDelta.y < 0) {
+                    m_Distance += angleChangeValue * distanceMultipier;
+                }
+                else if (Input.mouseScrollDelta.y > 0) {
+                    m_Distance -= angleChangeValue * distanceMultipier;
+                }
+                distanceMultipier += 0.2f;
+            }
+            else {
+                distanceMultipier = 1.0f;
             }
         }
 
-        protected virtual void HandleCamera()
-        {
-            if (!m_Target)
-            {
+        protected virtual void HandleCamera() {
+            if (!m_Target) {
                 return;
             }
 

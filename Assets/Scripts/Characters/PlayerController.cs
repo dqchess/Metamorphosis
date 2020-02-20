@@ -64,8 +64,10 @@ public class PlayerController : CharacterControllerBase {
         PlayerMovingAnimations playerMovingAnimations = PlayerMovingAnimations.Idle;
         var verticalAxis = Input.GetAxis("Vertical");
         var horizontalAxis = Input.GetAxis("Horizontal");
+        var cameraAngle = cameraController.CameraRotationAngle;
         var movementVector = new Vector3(horizontalAxis, 0.0f, verticalAxis);
-        playerMovingAnimations = (PlayerMovingAnimations)Enum.ToObject(typeof(PlayerMovingAnimations),GetMovementDirection(movementVector));
+        var rotatedVector = Quaternion.AngleAxis(cameraAngle, Vector3.up) * movementVector;
+        playerMovingAnimations = (PlayerMovingAnimations)Enum.ToObject(typeof(PlayerMovingAnimations),GetMovementDirection(rotatedVector));
         return playerMovingAnimations;
     }
     int GetMovementDirection(Vector3 velocity) {
@@ -80,7 +82,7 @@ public class PlayerController : CharacterControllerBase {
             movementDirection = Mathf.FloorToInt((angle + 22.5f) / 45.0f);
             movementDirection = 8 - movementDirection;
         }
-        Debug.Log(movementDirection);
+        //Debug.Log(movementDirection);
         return movementDirection + 1;
     }
     void ApplyPlayerMovement() {
@@ -110,7 +112,6 @@ public class PlayerController : CharacterControllerBase {
         ApplyPlayerMovement();
         ApplyFightControll();
     }
-    protected bool isRunned = false;
     protected override void ApplyAnimations() {
         if (!_animationStateChanged)
             return;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SimpleEnemy
   - BodyModel
+  - SmartEnemy
   layers:
   - Default
   - TransparentFX
