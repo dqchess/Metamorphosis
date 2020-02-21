@@ -6,7 +6,7 @@ using AnimationEnums;
 public class CharacterControllerBase : MonoBehaviour {
     
     public int HealthPoints { get; set; } = 100;
-    public int AttackDamage { get; set; } = 10;
+    public int AttackDamage { get; set; } = 0;
     public float Speed { get; set; } = 8.0f;
     public float PunchForce { get; set; } = 1.0f;
 
@@ -45,7 +45,7 @@ public class CharacterControllerBase : MonoBehaviour {
 
     protected virtual void ApplyDamage(int damage) {
         HealthPoints -= damage;
-        Debug.Log(string.Format("{0}_{1}", gameObject.tag, HealthPoints));
+        //Debug.Log(string.Format("{0}_{1}", gameObject.tag, HealthPoints));
         CheckToDead();
     }
 

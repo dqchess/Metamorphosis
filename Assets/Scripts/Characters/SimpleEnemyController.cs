@@ -18,7 +18,6 @@ public class SimpleEnemyController : CharacterControllerBase {
 
     protected override void Update() {
         base.Update();
-        Debug.Log(ProgressBar);
     }
 
     void MoveToObject(GameObject movementTarget) {
