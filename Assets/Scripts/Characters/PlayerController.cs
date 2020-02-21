@@ -8,12 +8,13 @@ using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class PlayerController : CharacterControllerBase {
     private float SpeedMultiplier { get; set; } = 0.01f;
     private PlayerMovingAnimations _playerMovingAnimationState;
     private PlayerFightAnimations _playerFightAnimationState;
-
+    private Image PlayerProgressBar;
     public PlayerMovingAnimations PlayerMovingAnimationState {
         get {
             return _playerMovingAnimationState;
@@ -44,6 +45,7 @@ public class PlayerController : CharacterControllerBase {
     protected override void Start() {
         base.Start();
         MovementAnimationDictionary = InitAnimationsDictionary();
+        PlayerProgressBar = GameObject.FindGameObjectsWithTag("PlayerProgressBar")[0].GetComponent<Image>();
         cameraController = Camera.main.gameObject.GetComponent<CameraController>();
     }
 
@@ -106,11 +108,18 @@ public class PlayerController : CharacterControllerBase {
             bool isAtackOccured = DoAttack();
         }
     }
+    void ApplyProgressBar()
+    {
+        float playerHP = this.HealthPoints;
+        PlayerProgressBar.fillAmount = playerHP  / 100.0f;  //Later put maxHP
+    }
     protected override void FixedUpdate() {
         base.FixedUpdate();
+        ApplyProgressBar();
         ApplyPlayerRotation();
         ApplyPlayerMovement();
         ApplyFightControll();
+        
     }
     protected override void ApplyAnimations() {
         if (!_animationStateChanged)

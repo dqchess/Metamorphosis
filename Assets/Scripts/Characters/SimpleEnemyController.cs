@@ -2,19 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleEnemyController : CharacterControllerBase {
 
     public virtual List<GameObject> TargetsInAgrArea { get; set; }
-
+    private Image ProgressBar;
     protected override void Start() {
         base.Start();
         TargetsInAgrArea = new List<GameObject>();
+        getProgressBar();
+
     }
 
 
     protected override void Update() {
         base.Update();
+        Debug.Log(ProgressBar);
     }
 
     void MoveToObject(GameObject movementTarget) {
@@ -38,6 +42,7 @@ public class SimpleEnemyController : CharacterControllerBase {
         base.FixedUpdate();
         ApplyFightControll();
         ApplyEnemyMovement();
+        applyProgressBar();
     }
     protected virtual void ApplyFightControll() {
         bool isAtackOccured = DoAttack();
@@ -46,4 +51,19 @@ public class SimpleEnemyController : CharacterControllerBase {
         TargetsInAgrArea.RemoveAll(s => s == null);
         return base.DoAttack();        
     }
+
+    protected void getProgressBar()
+    {
+        GameObject canvas = gameObject.transform.Find("Canvas").gameObject;/*.Find("CharacterProgressBar").Find("Filled").gameObject;*/
+        GameObject characterProgressBar = canvas.transform.Find("CharacterProgressBar").gameObject;
+        Image FilledPart = characterProgressBar.GetComponentsInChildren<Image>()[1];
+
+        ProgressBar = FilledPart;
+    } 
+    protected void applyProgressBar()
+    {
+        float enemyHP = this.HealthPoints;
+        ProgressBar.fillAmount = enemyHP / 100.0f;                    //Later put maxHP
+    }
+   
 }
