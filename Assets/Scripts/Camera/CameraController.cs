@@ -85,7 +85,7 @@ namespace CleverCamera {
             Debug.DrawLine(m_Target.position, rotatedVector, Color.green);
 
             Vector3 flatTargetPosition = m_Target.position;
-            flatTargetPosition.y = 0f;
+            flatTargetPosition.y = m_Target.transform.position.y;
             Vector3 finalPosition = flatTargetPosition + rotatedVector;
             Debug.DrawLine(m_Target.position, finalPosition, Color.blue);
 
