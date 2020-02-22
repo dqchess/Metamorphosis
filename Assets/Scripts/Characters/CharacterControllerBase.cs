@@ -6,7 +6,7 @@ using AnimationEnums;
 public class CharacterControllerBase : MonoBehaviour {
     
     public int HealthPoints { get; set; } = 100;
-    public int AttackDamage { get; set; } = 0;
+    public int AttackDamage { get; set; } = 10;
     public float Speed { get; set; } = 8.0f;
     public float PunchForce { get; set; } = 1.0f;
 
