@@ -9,15 +9,16 @@ public class SimpleEnemyController : CharacterControllerBase {
     public virtual List<GameObject> TargetsInAgrArea { get; set; }
     private Image ProgressBar;
     protected override void Start() {
-        base.Start();
-        TargetsInAgrArea = new List<GameObject>();
-        getProgressBar();
-
+        //base.Start();
+        //AttackDamage = 5;
+        //AttackSpeed = 1.0f;
+        //TargetsInAgrArea = new List<GameObject>();
+        //GetProgressBar();
     }
 
 
     protected override void Update() {
-        base.Update();
+        //base.Update();
     }
 
     void MoveToObject(GameObject movementTarget) {
@@ -38,10 +39,10 @@ public class SimpleEnemyController : CharacterControllerBase {
         }
     }
     protected override void FixedUpdate() {
-        base.FixedUpdate();
-        ApplyFightControll();
-        ApplyEnemyMovement();
-        applyProgressBar();
+        //base.FixedUpdate();
+        //ApplyFightControll();
+        //ApplyEnemyMovement();
+        //ApplyProgressBar();
     }
     protected virtual void ApplyFightControll() {
         bool isAtackOccured = DoAttack();
@@ -51,7 +52,7 @@ public class SimpleEnemyController : CharacterControllerBase {
         return base.DoAttack();        
     }
 
-    protected void getProgressBar()
+    protected void GetProgressBar()
     {
         GameObject canvas = gameObject.transform.Find("Canvas").gameObject;/*.Find("CharacterProgressBar").Find("Filled").gameObject;*/
         GameObject characterProgressBar = canvas.transform.Find("CharacterProgressBar").gameObject;
@@ -59,7 +60,7 @@ public class SimpleEnemyController : CharacterControllerBase {
 
         ProgressBar = FilledPart;
     } 
-    protected void applyProgressBar()
+    protected void ApplyProgressBar()
     {
         float enemyHP = this.HealthPoints;
         ProgressBar.fillAmount = enemyHP / 100.0f;                    //Later put maxHP
